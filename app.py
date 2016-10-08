@@ -9,6 +9,11 @@ app = Flask(__name__, template_folder='templates')
 # app.register_blueprint(controllers.albums)
 # app.register_blueprint(controllers.pic)
 # app.register_blueprint(controllers.main)
+app.register_blueprint(controllers.main)
+app.register_blueprint(controllers.login)
+#app.register_blueprint(controllers.logout)
+app.register_blueprint(controllers.pantry)
+
 
 # Listen on external IPs
 # For us, listen to port 3000 so you can just run 'python app.py' to start the server
