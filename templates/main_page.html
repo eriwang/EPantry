@@ -1,7 +1,14 @@
 {% extends "base.html" %}
+{% block extraScripts %}
+	<script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<script type="text/babel" src="static/js/views.js"></script>
+	<script type="text/javascript" src="static/js/pantry.js"></script>
+	<script type="text/javascript" src="static/js/recipes.js"></script>
+	<input type="hidden" id="username" value="{{session['username']}}">
+{% endblock %}
 {% block content %}
-    <h1>INDEX</h1>
-    <p class="center">
-      Welcome!
-    </p>
+<div class="container" id="content">
+</div>
 {% endblock %}
