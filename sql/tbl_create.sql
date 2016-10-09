@@ -25,7 +25,7 @@ CREATE TABLE stock (
 
 CREATE TABLE item (
 	amount int NOT NULL,
-	unit varchar(56) NOT NULL,
+	unit varchar(56),
 	id int NOT NULL AUTO_INCREMENT,
 	date timestamp NOT NULL DEFAULT NOW(),
 	stock_name varchar(56),
