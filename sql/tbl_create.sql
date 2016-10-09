@@ -51,10 +51,12 @@ CREATE TABLE possible_recipe (
 );
 
 CREATE TABLE recipe_requirement (
+  id int NOT NULL AUTO_INCREMENT,
   quantity int NOT NULL,
   unit varchar(56),
   stock_name varchar(56) NOT NULL,
   recipe_name varchar(56) NOT NULL,
+  PRIMARY KEY(id),
   FOREIGN KEY (stock_name) REFERENCES stock(name) ON DELETE CASCADE,
   FOREIGN KEY (recipe_name) REFERENCES recipe(name) ON DELETE CASCADE
 );

@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 import controllers
-
 # Initialize Flask app with the template folder address
 app = Flask(__name__, template_folder='templates')
 
@@ -13,6 +12,8 @@ app.register_blueprint(controllers.main)
 app.register_blueprint(controllers.login)
 #app.register_blueprint(controllers.logout)
 app.register_blueprint(controllers.pantry)
+
+app.secret_key = 'secret'
 
 
 

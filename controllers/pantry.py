@@ -1,6 +1,6 @@
 from flask import *
 import pymongo
-from extensions import User, Pantry, Stock, Item, Ingredients
+from extensions import User, Pantry, Stock, Item
 
 pantry = Blueprint('pantry', __name__, template_folder='templates')
 
@@ -12,6 +12,8 @@ def pantry_route():
 
 	if request.get_json()['METHOD'] == "GET":
 		items_list = Stock.query.filter_by(item_id = pantry_data.item_id).all()
+		for items in items_list:
+			print items
         #posts = db.posts
 
 	if request.get_json()['METHOD'] == 'POST':
