@@ -14,7 +14,7 @@ function onSignIn(googleUser) {
 			signInPostData, 
 			function(data, textStatus, jqXHR) {
 				console.log("Login successful.");
-				// implement window load when done
+				location.reload();
 			},
 			function(jqXHR, textStatus, errorThrown) {
 				console.log(errorThrown);
