@@ -3,22 +3,34 @@ from extensions import User, Pantry, Stock, Item, loadSession
 
 pantry = Blueprint('pantry', __name__, template_folder='templates')
 
+def get_item_dictionary(item):
+	print item.date.date()
+	return {
+		"quantity": item.amount, 
+		"itemName": item.stock_name, 
+		"unit": item.unit, 
+		"date": item.date.date().isoformat()
+	}
+
 @pantry.route('/pantry', methods=['GET', 'POST', 'PUT'])
 def pantry_route():
-	logged_user = session['username']
-	log_in_data = User.query.filter_by(User=logged_user).first()
-	pantry_data = Pantry.query.filter_by(pantry_id=log_in_data.pantry_id).first()
-	session = loadSession()
+	session.clear()
+	session['username'] = 'bob@bob.bob'
+	username = session['username']
+	dbSession = loadSession()
+	userQuery = dbSession.query(User.email).filter(User.email == username).first()
+	print userQuery
+	if not userQuery:
+		abort(403)
+
+	pantryQuery = dbSession.query(Pantry.id).filter(Pantry.user_email == username).first()
 
 	if request.method == 'GET':
-		items_list = session.query(Item).all()
+		items_list = dbSession.query(Item).all()
 		#do sorting later
-		output_list = []
-		for item in items_list:
-			item_data = {"quantity": item.amount,"itemName":item.stock_name, "unit": unit, "date":item.date.date().isocalendar()}
-			output_list.append(item_data)
+		output_list = [get_item_dictionary(item) for item in items_list]
 
-		return jsonify({"items":output_list})
+		return jsonify({"items": output_list})
 
 	if request.method == 'POST':
 		operation = request.get_json()['operation']
@@ -29,7 +41,7 @@ def pantry_route():
 		if operation == "add":
 			item_unit = request.get_json()['unit']
 			item_data = Item(item_amount, item_unit, item_name)
-			session.add(item_data)
+			dbSession.add(item_data)
 
 			stock_data = Stock.query.filter_by(name = item_name).first()
 			stock_data.amount = stock_data.amount + item_amount

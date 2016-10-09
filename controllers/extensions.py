@@ -1,14 +1,9 @@
+from config import env
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import config
 
-#SQLALCHEMY_DATABASE_URI = 'mysql://' + config.env['user'] + config.env['password'] + '@' + \
- #                         config.env['host'] + ':' + config.env['port'] + '/' + config.env['db']
-
-SQLALCHEMY_DATABASE_URI = 'mysql://root:root@localhost:3000/EPANTRY'
-
-engine = create_engine(SQLALCHEMY_DATABASE_URI, echo = True)
+engine = create_engine(env["sqlalchemy_db_uri"], echo = True)
 Base = declarative_base(engine)
 
 class User(Base):
@@ -20,8 +15,8 @@ class User(Base):
 class Pantry(Base):
 	__tablename__ = "pantry"
 	__table_args__ = {'autoload': True}
-	def __init__(self, email):
-		self.user_email = email
+	def __init__(self, email, pantry_id):
+		self.user_email = email, self.id = pantry_id 
 
 class Recipe(Base):
 	__tablename__ = "recipe"
@@ -31,8 +26,8 @@ class Recipe(Base):
 class Item(Base):
 	__tablename__ = "item"
 	__table_args__ = {'autoload': True}
-	def __init__(self, amount, unit, stock_name ):
-		self.amount = amount, self.unit = unit, self.stock_name = stock_name
+	def __init__(self, amount, unit, date, stock_name):
+		self.amount = amount, self.unit = unit, self.date = date, self.stock_name = stock_name
 
 class Stock(Base):
 	__tablename__ = "stock"
@@ -58,12 +53,3 @@ def loadSession():
 	Session = sessionmaker(bind = engine)
 	session = Session()
 	return session
-
-#def connect_to_database():
-  #host = 'localhost'
-  #port = 3000
-  #client = MongoClient(host, port)
-  #db = client.test_database
-  #return db
-
-#db = connect_to_database()
