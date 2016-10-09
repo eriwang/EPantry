@@ -6,32 +6,44 @@ var Page = React.createClass({
 
 var Header = React.createClass({
 	render: function() {
-		return <div><PantryDropdown/><RecipeDropdown/><Logo/><Profile/></div>;
+		var style = {marginTop: "10%"};
+		return <div>
+					<div className="row" style={style}>
+						<Logo/>
+					</div>
+					<div className="row">
+						<PantryTab/>
+						<RecipeTab/>
+						<Profile/>
+					</div>
+				</div>;
 	}
 });
 
-var PantryDropdown = React.createClass({
+var PantryTab = React.createClass({
 	render: function() {
-		return <div>Pantry</div>;
+		return <div className="two columns button">Pantry</div>;
 	}
 });
 
-var RecipeDropdown = React.createClass({
+var RecipeTab = React.createClass({
 	render: function() {
-		return <div>Recipe</div>;
+		return <div className="two columns button">Recipe</div>;
 	}
 });
 
 var Logo = React.createClass({
 	render: function() {
-		return <div>EPantry</div>;
+		var style = {textAlign: "center"};
+		return <div className="twelve columns" style={style}><h1>EPantry</h1></div>;
 	}
 });
 
 var Profile = React.createClass({
 	render: function() {
 		var username = document.getElementById("username").value;
-		return <div>Hi, {username}!</div>;
+		var style = {textAlign: "right"};
+		return <div className="eight columns" style={style}>Hi, {username}!</div>;
 	}
 });
 
@@ -41,7 +53,4 @@ var MainView = React.createClass({
 	}
 });
 
-ReactDOM.render(
-	<Page/>,
-	document.getElementById('content')
-);
+ReactDOM.render(<Page/>, document.getElementById('content'));

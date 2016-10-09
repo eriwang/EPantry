@@ -1,0 +1,40 @@
+/*
+
+Blue color theme:
+
+#3880CC
+#3A7FCC
+#28588C
+#122840
+#16304D
+#0E2033
+
+*/
+
+html {
+	font-size: 85%;
+}
+
+body {
+	background-color: #0E2033;
+	color: #3A7FCC;
+}
+
+.button {
+	border-color: #3A7FCC;
+	color: #3A7FCC;
+	transition: 0.1s ease-in-out;
+}
+
+.button:hover {
+	background-color: #16304D;
+	border-color: #3A7FCC;
+	color: #3A7FCC; 
+	font-weight: bold;
+}
+
+.button:active {
+	border-color: #7286CC;
+	color: #7286CC;
+	font-weight: bold;
+}
