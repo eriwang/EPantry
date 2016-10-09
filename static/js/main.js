@@ -1,3 +1,13 @@
+function ajaxGet(url, data, successCallback, errorCallback) {
+	$.ajax({
+		method: "GET",
+		data: data,
+		url: url,
+		success: successCallback,
+		error: errorCallback
+	});
+}
+
 function ajaxPost(url, data, successCallback, errorCallback) {
 	$.ajax({
 		method: "POST",

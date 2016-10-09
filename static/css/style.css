@@ -26,6 +26,14 @@ body {
 	transition: 0.1s ease-in-out;
 }
 
+.button::-moz-selection {
+	background-color: Transparent;
+}
+
+.button::selection {
+	background-color: Transparent;
+}
+
 .button:hover {
 	background-color: #16304D;
 	border-color: #3A7FCC;
