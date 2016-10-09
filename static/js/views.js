@@ -1,55 +1,45 @@
 var Page = React.createClass({
 	render: function() {
-		return <div><Header/><MainView/></div>;
+		return <div><Header func={this.setMainViewProp}/><MainView ref="mainView"/></div>;
+	},
+	setMainViewProp: function(property) {
+		this.refs.mainView.setState({mode: property}) //.MainView.setState({selected: property});
 	}
 });
 
 var Header = React.createClass({
 	render: function() {
-		var style = {marginTop: "10%"};
+		var marginTopStyle = {marginTop: "10%"};
+		var centerAlignStyle = {textAlign: "center"};
+		var rightAlignStyle = {textAlign: "right"};
+		var username = document.getElementById("username").value;
 		return <div>
-					<div className="row" style={style}>
-						<Logo/>
+					<div className="row" style={marginTopStyle}>
+						<div className="twelve columns" style={centerAlignStyle}><h1>EPantry</h1></div>
 					</div>
 					<div className="row">
-						<PantryTab/>
-						<RecipeTab/>
-						<Profile/>
+						<div className="two columns button" onClick={this.handlePantryClick}>Pantry</div>
+						<div className="two columns button" onClick={this.handleRecipeClick}>Recipe</div>
+						<div className="eight columns" style={rightAlignStyle}>Hi, {username}!</div>
 					</div>
 				</div>;
-	}
-});
-
-var PantryTab = React.createClass({
-	render: function() {
-		return <div className="two columns button">Pantry</div>;
-	}
-});
-
-var RecipeTab = React.createClass({
-	render: function() {
-		return <div className="two columns button">Recipe</div>;
-	}
-});
-
-var Logo = React.createClass({
-	render: function() {
-		var style = {textAlign: "center"};
-		return <div className="twelve columns" style={style}><h1>EPantry</h1></div>;
-	}
-});
-
-var Profile = React.createClass({
-	render: function() {
-		var username = document.getElementById("username").value;
-		var style = {textAlign: "right"};
-		return <div className="eight columns" style={style}>Hi, {username}!</div>;
+	},
+	handlePantryClick: function() {
+		console.log("Pantry clicked");
+		this.props.func("pantry");
+	},
+	handleRecipeClick: function() {
+		console.log("Recipe clicked");
+		this.props.func("recipe");
 	}
 });
 
 var MainView = React.createClass({
+	getInitialState: function() {
+		return {mode: "pantry"};
+	},
 	render: function() {
-		return <div>MAIN VIEW</div>;
+		return <div>{this.state.mode}</div>;
 	}
 });
 
